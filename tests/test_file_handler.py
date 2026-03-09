@@ -9,10 +9,11 @@ def test_reading_text_from_pdf_file():
     filepath = "./data/transactions.pdf"
     assert isinstance(read_text_from_pdf(filepath), str)
 
+
 @pytest.mark.file_handler_excel
 def test_reading_excel_file():
     filepath = "./data/transactions.xlsx"
-    sheet='Transactions'
+    sheet = "Transactions"
     df = read_excel_file(filepath, sheet)
     assert isinstance(df, pd.DataFrame)
     assert not df.empty
