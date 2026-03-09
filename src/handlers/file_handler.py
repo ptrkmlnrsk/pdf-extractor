@@ -1,15 +1,14 @@
 import pdfplumber
 import pandas as pd
+from pathlib import Path
 
 
 def read_excel_file(filename: str, sheet: str) -> pd.DataFrame:
-    return pd.read_excel(filename, sheet_name=sheet, engine="xlrd")
-
-
-# TODO zainstalowac te paczke xlrd
+    return pd.read_excel(filename, sheet_name=sheet, engine="openpyxl")
 
 
 def read_text_from_pdf(file_name: str) -> str:
+
     with pdfplumber.open(file_name) as pdf_obj:
         text_list = ""
 
@@ -21,9 +20,10 @@ def read_text_from_pdf(file_name: str) -> str:
 
 if __name__ == "__main__":
     # pdf = read_pdf_file(file_name="D:\\repos\\pdf-extractor\\data\\transactions.pdf")
-    file_path = "transactions.pdf"
-    text_from_pdf = read_text_from_pdf(file_name=file_path)
+    pdf_file_path = "D:\\repos\\pdf-extractor\\data\\transactions.pdf"
+    text_from_pdf = read_text_from_pdf(file_name=pdf_file_path)
     print(text_from_pdf)
 
-    transactions_data = read_excel_file(file_path, sheet="Transactions")
+    xlsx_file_path = "D:\\repos\\pdf-extractor\\data\\transactions.xlsx"
+    transactions_data = read_excel_file(xlsx_file_path, sheet="Transactions")
     print(transactions_data)
