@@ -8,7 +8,6 @@ def read_excel_file(filename: str, sheet: str) -> pd.DataFrame:
 
 
 def read_text_from_pdf(file_name: str) -> str:
-
     with pdfplumber.open(file_name) as pdf_obj:
         text_list = ""
 
