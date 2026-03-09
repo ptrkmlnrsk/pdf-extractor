@@ -18,7 +18,7 @@ def read_text_from_pdf(file_name: str) -> str:
 
 if __name__ == '__main__':
     #pdf = read_pdf_file(file_name="D:\\repos\\pdf-extractor\\data\\transactions.pdf")
-    file_path = "D:\\repos\\pdf-extractor\\data\\transactions.pdf"
+    file_path = "transactions.pdf"
     text_from_pdf= read_text_from_pdf(file_name=file_path)
     print(text_from_pdf)
 
