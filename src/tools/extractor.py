@@ -1,13 +1,24 @@
-from re import findall
+import pdfplumber
 import pandas as pd
 
-
-def extract_data_from_string(string: str) -> list:
-    extracted_data = findall(r"(INV\d{3})[\s\S]*?(\d+\.\d{2})", string)
-    return extracted_data
+from re import findall
 
 
-def transform_data_to_df(extracted_data: list) -> pd.DataFrame:
-    df = pd.DataFrame(extracted_data, columns=["invoice_id", "amount"])
-    df["invoice_id"] = df["invoice_id"].astype(float)
-    return df
+def read_excel_file(filename: str, sheet: str) -> pd.DataFrame:
+    return pd.read_excel(filename, sheet_name=sheet, engine="openpyxl")
+
+
+def read_text_from_pdf(file_name: str) -> str:
+    with pdfplumber.open(file_name) as pdf_obj:
+        text_list = ""
+
+        for page in pdf_obj.pages:
+            text_list = page.extract_text()
+
+        return text_list
+
+
+def extract_data_from_string(string: str) -> list[str]:
+    regex = r"(INV\d{3})[\s\S]*?(\d+\.\d{2})"
+
+    return findall(regex, string)
