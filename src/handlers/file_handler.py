@@ -1,6 +1,11 @@
 # import pdfplumber
 # import pandas as pd
 # from pathlib import Path
+import pandas as pd
+
+
+def write_reconciliation_report(reconciled_data: pd.DataFrame, file_name: str):
+    reconciled_data.to_csv(f"{file_name}.csv", sep=",", index=False, header=True)
 
 
 # def read_excel_file(filename: str, sheet: str) -> pd.DataFrame:
