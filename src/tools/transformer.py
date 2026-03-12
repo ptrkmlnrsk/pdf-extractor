@@ -1,5 +1,11 @@
 import pandas as pd
 
+COLUMNS_TO_RENAME = {
+    "InvoiceNo": "invoice_id",
+    # "Amount": "amount"
+}
+# ten słownik to mapper
+
 
 def transform_invoice_string_data_to_df(extracted_data: list) -> pd.DataFrame:
     transformed_df = pd.DataFrame(extracted_data, columns=["invoice_id", "amount"])
@@ -8,9 +14,10 @@ def transform_invoice_string_data_to_df(extracted_data: list) -> pd.DataFrame:
     return transformed_df
 
 
-def get_necessary_columns_from_df(full_df: pd.DataFrame) -> pd.DataFrame:
-    narrowed_df = full_df[["InvoiceNo", "Amount"]]
+# TODO
 
-    return narrowed_df.rename(
-        columns={"InvoiceNo": "invoice_id", "Amount": "amount"}, inplace=True
-    )
+
+def get_necessary_columns_from_df(full_df: pd.DataFrame) -> pd.DataFrame:
+    narrowed_df = full_df[list(COLUMNS_TO_RENAME.keys())]
+
+    return narrowed_df.rename(columns=COLUMNS_TO_RENAME, inplace=True)

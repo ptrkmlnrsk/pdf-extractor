@@ -13,7 +13,7 @@ def read_text_from_pdf(file_name: str) -> str:
         text_list = ""
 
         for page in pdf_obj.pages:
-            text_list = page.extract_text()
+            text_list += page.extract_text()
 
         return text_list
 
