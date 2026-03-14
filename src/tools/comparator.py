@@ -28,8 +28,7 @@ class Comparator:
 
     # TODO match case
     @staticmethod
-    def _get_status(row: Series) -> str:
-        # zmienne moga tez przechowywac warunki
+    def _get_invoice_status(row: Series) -> str:
         is_xlsx_nan = isna(row["amount_xlsx"])
         is_pdf_nan = isna(row["amount_pdf"])
         not_xlsx_pdf_same = row["amount_xlsx"] != row["amount_pdf"]
@@ -44,8 +43,5 @@ class Comparator:
             return "OK"
 
     @staticmethod
-    def _generate_status(*args) -> None:
-        # self.merged_data["status"]
-        # TODO rozkminić jak tu wrzucić funkcję
-        merged_data = args[0]
-        return merged_data.apply(args[1], axis="columns")
+    def _generate_invoice_status(merged_data: DataFrame) -> DataFrame:
+        return merged_data.apply(Comparator._get_invoice_status, axis="columns")
