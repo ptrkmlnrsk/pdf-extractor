@@ -1,11 +1,10 @@
 import pdfplumber
-import pandas as pd
-
+from pandas import DataFrame, read_excel
 from re import findall
 
 
-def read_excel_file(filename: str, sheet: str) -> pd.DataFrame:
-    return pd.read_excel(filename, sheet_name=sheet, engine="openpyxl")
+def read_excel_file(filename: str, sheet: str) -> DataFrame:
+    return read_excel(filename, sheet_name=sheet, engine="openpyxl")
 
 
 def read_text_from_pdf(file_name: str) -> str:
