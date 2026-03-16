@@ -30,15 +30,15 @@ def read_text_from_pdf(filepath: str) -> str:
         raise ValueError(f"{filepath} does not exist")
 
     with pdfplumber.open(filepath) as pdf_obj:
-        text_list = ""
+        text_string = ""
 
         for page in pdf_obj.pages:
-            text_list += page.extract_text()
+            text_string += page.extract_text()
 
-    if len(text_list) > 0:
+    if len(text_string) == 0:
         raise ValueError(f"{filepath} does not contain any text")
 
-    return text_list
+    return text_string
 
 
 def extract_data_from_string(string: str) -> list[str]:
