@@ -4,14 +4,11 @@ COLUMNS_TO_RENAME = {"InvoiceNo": "invoice_id", "Amount": "amount"}
 # ten słownik to mapper
 
 
-def transform_invoice_string_data_to_df(extracted_data: list) -> DataFrame:
+def transform_invoice_string_data_to_df(extracted_data: list[str]) -> DataFrame:
     transformed_df = DataFrame(extracted_data, columns=["invoice_id", "amount"])
     transformed_df["amount"] = transformed_df["amount"].astype(float)
 
     return transformed_df
-
-
-# TODO
 
 
 def get_necessary_columns_from_df(full_df: DataFrame) -> DataFrame:

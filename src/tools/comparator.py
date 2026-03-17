@@ -26,7 +26,6 @@ class Comparator:
         )
         return data_merged
 
-    # TODO match case
     @staticmethod
     def _get_invoice_status(row: Series) -> str:
         is_xlsx_nan = isna(row["amount_xlsx"])
