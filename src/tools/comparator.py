@@ -1,12 +1,17 @@
 from pandas import DataFrame, Series, isna, concat
 
 
-class Comparator:
+class InvoiceComparator:
     def __init__(self, df_xlsx: DataFrame, df_pdf: DataFrame):
         self.df_xlsx = df_xlsx
         self.df_pdf = df_pdf
 
-    def build_invoices_ids(self) -> DataFrame:
+    def compare(self):
+        merged_data = self._merge_data_frames()
+        merged_data["status"] = self._generate_invoice_status(merged_data)
+        return merged_data
+
+    def _build_invoices_ids(self) -> DataFrame:
         return DataFrame(
             {
                 "invoice_id": concat(
@@ -16,7 +21,7 @@ class Comparator:
         )
 
     def _merge_data_frames(self) -> DataFrame:
-        invoice_ids = self.build_invoices_ids()
+        invoice_ids = self._build_invoices_ids()
         data_merged = invoice_ids.merge(self.df_xlsx, how="left", on="invoice_id")
         data_merged = data_merged.merge(self.df_pdf, how="left", on="invoice_id")
         data_merged.rename(
@@ -30,17 +35,18 @@ class Comparator:
     def _get_invoice_status(row: Series) -> str:
         is_xlsx_nan = isna(row["amount_xlsx"])
         is_pdf_nan = isna(row["amount_pdf"])
-        not_xlsx_pdf_same = row["amount_xlsx"] != row["amount_pdf"]
+        is_amount_mismatch = row["amount_xlsx"] != row["amount_pdf"]
+        # warto rozważyć Decimal
 
         if is_xlsx_nan:
             return "Missing in Excel"
         elif is_pdf_nan:
             return "Missing in PDF"
-        elif not_xlsx_pdf_same:
+        elif is_amount_mismatch:
             return "Amount mismatch"
         else:
             return "OK"
 
     @staticmethod
-    def _generate_invoice_status(merged_data: DataFrame) -> DataFrame:
-        return merged_data.apply(Comparator._get_invoice_status, axis="columns")
+    def _generate_invoice_status(merged_data: DataFrame) -> Series:
+        return merged_data.apply(InvoiceComparator._get_invoice_status, axis="columns")
