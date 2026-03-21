@@ -26,17 +26,23 @@ def read_text_from_pdf(filepath: str) -> str:
     if not filepath:
         raise ValueError("filepath cannot be empty")
 
-    if not Path(filepath).exists():
-        raise ValueError(f"{filepath} does not exist")
-
-    with pdfplumber.open(filepath) as pdf_obj:
-        text_string = ""
-
-        for page in pdf_obj.pages:
-            text_string += page.extract_text()
+    text_string = check_pdf(filepath)
 
     if len(text_string) == 0:
         raise ValueError(f"{filepath} does not contain any text")
+
+    return text_string
+
+
+def check_pdf(filepath: str) -> str:
+    if not Path(filepath).exists():
+        raise ValueError(f"{filepath} does not exist")
+
+    text_string = ""
+    # kontekst manager moze zabijać wszystko wiec lepiej zapisac zmienne poza context managerem
+    with pdfplumber.open(filepath) as pdf_obj:
+        for page in pdf_obj.pages:
+            text_string += page.extract_text()
 
     return text_string
 
