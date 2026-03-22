@@ -9,7 +9,6 @@ class ParserFactory:
         match suffix:
             case ".xlsx":
                 return InvoiceXLSXParser()
-            # TODO: zrób klase która zmienia nazwy kolumn na te same co w PDF'ie
             case ".pdf":
                 return InvoicePDFParser()
             case _:

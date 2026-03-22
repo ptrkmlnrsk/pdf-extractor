@@ -24,7 +24,7 @@ class InvoiceService:
 
     def run_reconciliation(self, xlsx_path: str, pdf_path: str, **kwargs) -> DataFrame:
         df_xlsx = self.load_and_parse(xlsx_path, **kwargs)
-        df_pdf = self.load_and_parse(pdf_path, **kwargs)
+        df_pdf = self.load_and_parse(pdf_path)
 
         return self.compare_invoices(df_xlsx, df_pdf)
 
