@@ -20,27 +20,22 @@ class InvoicePDFParser(BaseParser):
         data = []
 
         for text in pages:
-            invoice_number = self._extract_invoice_number(text)
-            date = self._extract_date(text)
-            total = self._extract_total(text)
+            invoice_numbers = self._extract_invoice_number(text)
+            totals = self._extract_total(text)
 
-            data.append(
-                {"invoice_number": invoice_number, "date": date, "total": total}
-            )
+            for inv, total in zip(invoice_numbers, totals):
+                data.append({"invoice_number": inv, "total": total})
 
         return DataFrame(data)
 
     def _extract_invoice_number(self, text: str):
-        match = re.search(r"Faktura\s+nr\s+(\S+)", text)
-        return match.group(1) if match else None
+        match = re.findall(r"(INV\d{3})", text)
+        return match if match else None
 
-    def _extract_date(self, text: str):
-        match = re.search(r"\d{4}-\d{2}-\d{2}", text)
-        return match.group(0) if match else None
-
+    #
     def _extract_total(self, text: str):
-        match = re.search(r"Razem\s+(\d+[.,]\d+)", text)
-        return match.group(1) if match else None
+        match = re.findall(r"(\d+\.\d{2})", text)
+        return match if match else None
 
 
 class InvoiceXLSXParser(BaseParser):
