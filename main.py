@@ -13,9 +13,6 @@ def main():
     args = parser.parse_args()
     service = InvoiceService()
 
-    # df_xlsx = service.load_and_parse(args.xlsx, sheet=args.sheet)
-    # df_pdf = service.load_and_parse(args.pdf)
-
     result = service.run_reconciliation(args.xlsx, args.pdf, sheet_name=args.sheet)
 
     from src.tools.exporter import write_reconciliation_report_to_csv
