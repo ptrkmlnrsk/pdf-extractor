@@ -1,6 +1,6 @@
 from pandas import read_excel
 from pathlib import Path
-from src.tools.base import BaseLoader
+from src.services.base import BaseLoader
 from typing import Literal
 
 DEFAULT_XLSX_ENGINE: Literal["openpyxl"] = "openpyxl"  # unikamy magic numbers
@@ -17,7 +17,7 @@ class PDFLoader(BaseLoader):
         import pdfplumber
 
         pages = []
-        # kontekst manager moze zabijać wszystko wiec lepiej zapisac zmienne poza context managerem
+
         with pdfplumber.open(file_path) as pdf_obj:
             for page in pdf_obj.pages:
                 text_string = page.extract_text()
@@ -27,7 +27,7 @@ class PDFLoader(BaseLoader):
         return pages
 
 
-class LoaderFactory:  # interpretuje to jako miejsce wykonywania Loadera
+class LoaderFactory:
     @staticmethod
     def get_loader(suffix: str) -> BaseLoader:
         match suffix:

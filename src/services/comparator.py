@@ -36,7 +36,7 @@ class InvoiceComparator:
         is_xlsx_nan = isna(row["amount_xlsx"])
         is_pdf_nan = isna(row["amount_pdf"])
         is_amount_mismatch = row["amount_xlsx"] != row["amount_pdf"]
-        # warto rozważyć Decimal
+        # TODO warto rozważyć Decimal
 
         if is_xlsx_nan:
             return "Missing in Excel"

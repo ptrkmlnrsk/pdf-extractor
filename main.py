@@ -1,5 +1,6 @@
 import argparse
-from src.tools.services import InvoiceService
+from src.services.invoice_service import InvoiceService
+from src.services.exporter import write_reconciliation_report_to_csv
 
 
 def main():
@@ -11,11 +12,9 @@ def main():
     parser.add_argument("--output", required=True, help="Output CSV path")
 
     args = parser.parse_args()
+
     service = InvoiceService()
-
     result = service.run_reconciliation(args.xlsx, args.pdf, sheet_name=args.sheet)
-
-    from src.tools.exporter import write_reconciliation_report_to_csv
 
     write_reconciliation_report_to_csv(result, args.output)
 

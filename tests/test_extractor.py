@@ -1,20 +1,16 @@
 import pytest
 import pandas as pd
 
-from src.tools.extractor import (
+from src.services.extractor import (
     read_text_from_pdf,
     read_excel_file,
     extract_data_from_string,
 )
 
 
-def test_if__excel_filepath_is_empty():
+def test_if_excel_filepath_is_empty():
     with pytest.raises(ValueError):
         read_excel_file("", sheet="test")
-
-
-# TODO pytanie czy ten read_text_from_pdf nie powinien mieć innej nazwy read_pdf_file
-# TODO zrobić brancha
 
 
 def test_read_text_from_pdf():

@@ -1,9 +1,9 @@
 from pathlib import Path
 from pandas import DataFrame
 
-from src.tools.comparator import InvoiceComparator
-from src.tools.loaders import LoaderFactory
-from src.tools.parsers import ParserFactory
+from src.services.comparator import InvoiceComparator
+from src.services.loaders import LoaderFactory
+from src.services.parsers import ParserFactory
 
 
 class InvoiceService:
@@ -27,6 +27,3 @@ class InvoiceService:
         df_pdf = self.load_and_parse(pdf_path)
 
         return self.compare_invoices(df_xlsx, df_pdf)
-
-
-# TODO: ćwiczenie zeby jakoś wczytac dane z WORDa
