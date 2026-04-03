@@ -20,15 +20,15 @@ class InvoicePDFParser(BaseParser):
         data = []
 
         for text in pages:
-            invoice_numbers = self._extract_invoice_number(text)
+            invoice_ids = self._extract_invoice_id(text)
             amounts = self._extract_amount(text)
 
-            for inv, amount in zip(invoice_numbers, amounts):
-                data.append({"invoice_number": inv, "amount": amount})
+            for inv, amount in zip(invoice_ids, amounts):
+                data.append({"invoice_id": inv, "amount": amount})
 
         return DataFrame(data)
 
-    def _extract_invoice_number(self, text: str):
+    def _extract_invoice_id(self, text: str):
         match = re.findall(r"(INV\d{3})", text)
         return match if match else None
 
@@ -41,7 +41,7 @@ class InvoicePDFParser(BaseParser):
 class InvoiceXLSXParser(BaseParser):
     def parse(self, df: DataFrame) -> DataFrame:
         column_mapping = {
-            "invoice_number": ["InvoiceNo", "invoice_no", "InvoiceNumber"],
+            "invoice_id": ["InvoiceNo", "invoice_no", "InvoiceNumber"],
             # "date": ["InvoiceDate", "invoice_date"],
             "amount": ["Amount", "amount"],
         }
@@ -53,4 +53,4 @@ class InvoiceXLSXParser(BaseParser):
 
         df.rename(columns=dict_to_rename, inplace=True)
 
-        return df[["invoice_number", "amount"]]
+        return df[["invoice_id", "amount"]]
