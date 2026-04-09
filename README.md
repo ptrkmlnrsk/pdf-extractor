@@ -41,7 +41,7 @@ PDF / Excel → Extractor → Parser → Transformer → Comparator → Output /
   - `Amount mismatch`
 - contains module that saves report to SQLite DB, currently in development
 
-##4. Project structure
+## 4. Project structure
 
 ```bash
 pdf-extractor/
@@ -97,6 +97,44 @@ This project uses several tools to ensure code quality and security:
 - **bandit** – scans the codebase for common security issues
 
 ### Setup
+
+Project requires some external dependencies so, as good practices you need to create isolated environment and install all necessary dependencies in it.
+To do it you can use following code snippet:
+
+Create Virtual Environment
+```bash
+python3 -m venv venv
+```
+
+venv is the folder for the virtual environment.
+
+Activate Virtual Environment
+macOS/Linux
+```bash
+source venv/bin/activate
+```
+
+Windows (Command Prompt)
+```bash
+venv\Scripts\activate
+```
+
+Windows (PowerShell)
+```bash
+.\venv\Scripts\Activate.ps1
+```
+
+Install Project Dependencies
+```bash
+pip install -r requirements.txt
+```
+
+Installs all packages listed in requirements.txt.
+
+Deactivate Environment When Done
+```bash
+deactivate
+```
 
 Install pre-commit hooks:
 
