@@ -7,7 +7,7 @@ The project extracts, transforms, and compares invoice data, identifying inconsi
 
 The project is structured into modular layers:
 
-- **tools/** – core business logic:
+- **services/** – core business logic:
   - data extraction (PDF, Excel),
   - transformation and normalization,
   - comparison logic (reconciliation),
@@ -98,8 +98,8 @@ This project uses several tools to ensure code quality and security:
 
 ### Setup
 
-Project requires some external dependencies so, as good practices you need to create isolated environment and install all necessary dependencies in it.
-To do it you can use following code snippet:
+Project requires Python 3.13 or higher and some external dependencies so, as good practices you need to create isolated environment and install all necessary dependencies in it.
+To do it you can use following code snippets:
 
 Create Virtual Environment
 ```bash
